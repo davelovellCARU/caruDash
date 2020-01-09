@@ -4,14 +4,16 @@ library("readxl")
 library("tidyverse")
 
 ui = fluidPage(
+  h1("CARU Dashboard 2019/2020"),
+  h2("So far this year:"),
   actionButton(inputId = "bigButton",
                label = "Get Data"),
-  textOutput(outputId = "numInterviews")
+  tableOutput(outputId = "overview")
 )
 
 
 server = function(input, output) {
-  datum = eventReactive(input$bigButton,
+  statsTable = eventReactive(input$bigButton,
                         {excelUrl = "https://www.dropbox.com/s/v9lm9y7nso8yw1x/dashboardTotals.xlsx?dl=1&raw=1"
                           
                           tmpF <- paste0(getwd(), "/newTing.xlsx")
@@ -21,16 +23,24 @@ server = function(input, output) {
                           
                           writeBin(binary, tmpF)
                           
-                          ((readxl::read_excel(tmpF)) %>%
-                              select(2) %>%
-                              pull(1) %>%
-                              as.character)[1] -> tmp
-                          return(tmp)})
+                          (readxl::read_excel(tmpF)) %>%
+                              rename(surveys = 1,
+                                     interviews = 2,
+                                     focusGroups = 3,
+                                     focusGroupParticipants = 4,
+                                     researchersTrained = 5) -> tmp
+                            return(tmp)
+                        })
   
-  output$numInterviews =
-    renderText({
-      datum()
-    })
+  output$overview =
+    renderTable({
+      as.matrix(statsTable() %>%
+                  rename("Surveys\ncompleted"=surveys,
+                         "Interviews\nconducted"=interviews,
+                         "Focus groups\nfacillitated" = focusGroups,
+                         "Focus group\nparticipants" = focusGroupParticipants,
+                         "Action researchers\ntrained" = researchersTrained))
+    }, digits = 0)
   }
 
 
