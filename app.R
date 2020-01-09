@@ -14,7 +14,7 @@ ui = fluidPage(
 )
 
 # Server function -------------------------------------------------------------
-server = function(input, output, statsTable = statsTable) {
+server = function(input, output) {
 
   # Initial code which reads the excel data -------------------------------------
      ### Should run ever time a new user arrives
