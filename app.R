@@ -8,8 +8,8 @@ library("tidyverse")
 ui = fluidPage(
   h1("CARU Dashboard 2019/2020"),
   h2("So far this year:"),
-  actionButton(inputId = "bigButton",
-               label = "Get Data"),
+  # actionButton(inputId = "bigButton",
+  #              label = "Get Data"),
   tableOutput(outputId = "overview")
 )
 
