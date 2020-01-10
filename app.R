@@ -22,7 +22,7 @@ server = function(input, output) {
   excelUrl = "https://www.dropbox.com/s/v9lm9y7nso8yw1x/dashboardTotals.xlsx?dl=1&raw=1"
   
   ### Write binary from excel url to a tempFile
-  tmpF <- paste0(getwd(), "/newTing.xlsx")
+  tmpF <- tempfile()
   theFile <- url(excelUrl, open = "rb")
   binary = readBin(theFile, raw(), 100000)
   writeBin(binary, tmpF)
