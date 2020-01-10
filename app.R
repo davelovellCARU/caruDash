@@ -24,8 +24,7 @@ server = function(input, output) {
   ### Write binary from excel url to a tempFile
   tmpF <- tempfile()
   theFile <- url(excelUrl, open = "rb")
-  binary = readBin(theFile, raw(), 100000)
-  writeBin(binary, tmpF)
+  writeBin({readBin(theFile, raw(), 100000)}, tmpF)
   
   ### Read context of temp binary to a df, statsTable
   (readxl::read_excel(tmpF)) %>%
