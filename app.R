@@ -22,8 +22,10 @@ server = function(input, output) {
   excelUrl = "https://www.dropbox.com/s/v9lm9y7nso8yw1x/dashboardTotals.xlsx?dl=1&raw=1"
   
   ### Write binary from excel url to a tempFile
+  # Make tmpF (to write to) and theFile (to read from)
   tmpF <- tempfile()
   theFile <- url(excelUrl, open = "rb")
+  # write contents of theFile to tmpF
   writeBin({readBin(theFile, raw(), 100000)}, tmpF)
   
   ### Read context of temp binary to a df, statsTable
