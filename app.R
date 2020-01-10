@@ -16,7 +16,7 @@ ui = fluidPage(
 # Server function -------------------------------------------------------------
 server = function(input, output) {
 
-  # Initial code which reads the excel data -------------------------------------
+  # Initial code which reads the excel data \\\\\\\\\\\\\\\\\\\\
      ### Should run ever time a new user arrives
   ### Define URL to download excel file from
   excelUrl = "https://www.dropbox.com/s/v9lm9y7nso8yw1x/dashboardTotals.xlsx?dl=1&raw=1"
@@ -36,7 +36,7 @@ server = function(input, output) {
       focusGroupParticipants = 4,
       researchersTrained = 5) -> statsTable
   
-  # Overview table output ------------------------------------
+  # Overview table output \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   output$overview =
     renderTable({
       as.matrix(
